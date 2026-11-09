@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="La stessa scala, vista da un’altra nota: i sette modi, la scala maggiore da cui vengono e il cerchio delle quinte.">
+<meta name="description" content="The same scale, seen from another note: the seven modes, the major scale they come from, and the circle of fifths.">
 <meta name="theme-color" content="#02040F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -75,7 +75,7 @@ h2{font-weight:400;font-size:.95rem;color:var(--mute);margin:0}
 <div class="wrap">
   <header>
     <div><h1>modi</h1><p class="tag" data-t="tag"></p></div>
-    <div class="lang" id="lang"><button data-l="it">it</button><button data-l="en">en</button></div>
+    <div class="lang" id="lang"><button data-l="en">en</button><button data-l="it">it</button></div>
   </header>
 
   <section>
@@ -160,10 +160,12 @@ function spell(key,sc){const c=(ENH[key]||[NT[key]]).map(n=>spellFrom(n,key,sc))
   const cost=a=>a.join("").replace(/[𝄪𝄫]/g,"xx").replace(/[^♯♭x]/g,"").length;return c.reduce((a,b)=>cost(b)<cost(a)?b:a)}
 const BRIGHT=[3,0,4,1,5,2,6]; // lydian → locrian
 const DEG=(x,sc)=>x===6&&!sc.includes(7)?"♭5":["1","♭2","2","♭3","3","4","♯4","5","♭6","6","♭7","7"][x];
-const S={key:4,mode:2,lang:"it",view:0};
-try{Object.assign(S,JSON.parse(localStorage.getItem("modes")||"{}"))}catch(e){}
+const S={key:4,mode:2,lang:"en",view:0};
+try{const o=JSON.parse(localStorage.getItem("modes")||"{}");delete o.lang;Object.assign(S,o)}catch(e){}
+// language is remembered only after the viewer picks one; English otherwise
+try{const l=localStorage.getItem("modiLang");if(l==="it"||l==="en")S.lang=l}catch(e){}
 const $=id=>document.getElementById(id);
-const T=()=>TX[S.lang]||TX.it;
+const T=()=>TX[S.lang]||TX.en;
 const N=n=>S.lang==="it"?IT[n[0]]+n.slice(1):n; // note name in the current language
 
 function opts(el,items,lab,set){el.innerHTML="";items.forEach((it,i)=>{const b=document.createElement("button");b.textContent=lab(it,i);b.onclick=()=>{set(i);render()};el.appendChild(b)})}
@@ -212,9 +214,9 @@ function render(){
   let prev=null;
   $("ladder").innerHTML=BRIGHT.map(k=>{const o=M[k],sp=spellFrom(SP[0],S.key,o.s),ns=o.s.map((x,i)=>{const lowered=prev&&!prev.includes(x)&&prev.includes(x+1);return lowered?`<em>${N(sp[i])}</em>`:N(sp[i])}).join("  ");prev=o.s;
     return `<button data-m="${k}" aria-pressed="${k===S.mode}"><span class="nm">${nm[k]}</span><span class="ns">${ns}</span></button>`}).join("");
-  try{localStorage.setItem("modes",JSON.stringify(S))}catch(e){}
+  try{const o={...S};delete o.lang;localStorage.setItem("modes",JSON.stringify(o))}catch(e){}
 }
-$("lang").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lang=b.dataset.l;render()};
+$("lang").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lang=b.dataset.l;try{localStorage.setItem("modiLang",S.lang)}catch(x){}render()};
 $("same").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.key=+b.dataset.k;S.mode=+b.dataset.m;render()};
 $("ladder").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.mode=+b.dataset.m;render()};
 
