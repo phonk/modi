@@ -115,12 +115,15 @@ h2{font-weight:400;font-size:.95rem;color:var(--mute);margin:0}
   </section>
 </div>
 
+
+<footer class="phonk-foot"><a href="https://github.com/phonk/modi" data-t="source"></a><span aria-hidden="true">·</span><a href="https://phonk.github.io/">phonk</a></footer>
+<style>.phonk-foot{display:flex;justify-content:center;gap:10px;padding:32px 16px 12px;font-size:.8rem;letter-spacing:.04em;color:var(--mute,var(--ink-dim,var(--muted,#968E96)))}.phonk-foot a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px}.phonk-foot a:hover,.phonk-foot a:focus-visible{color:var(--amber,#E59500);border-bottom-color:currentColor;outline:none}</style>
 <script>
 (()=>{
 const NT=["C","C♯","D","E♭","E","F","F♯","G","A♭","A","B♭","B"];
 const IT={C:"Do",D:"Re",E:"Mi",F:"Fa",G:"Sol",A:"La",B:"Si"};
 const TX={
-  it:{tag:"la stessa scala, vista da un’altra nota",views:["semitoni","quinte","quarte"],viewHint:["","Nel cerchio delle quinte le note di un modo sono sempre sette punti vicini. I modi sono in ordine dal più luminoso al più scuro: ogni tocco sposta lo spicchio di un passo.","Il cerchio delle quarte è quello delle quinte percorso al contrario: lo stesso arco, girato dall’altra parte."],
+  it:{source:"codice su github",tag:"la stessa scala, vista da un’altra nota",views:["semitoni","quinte","quarte"],viewHint:["","Nel cerchio delle quinte le note di un modo sono sempre sette punti vicini. I modi sono in ordine dal più luminoso al più scuro: ogni tocco sposta lo spicchio di un passo.","Il cerchio delle quarte è quello delle quinte percorso al contrario: lo stesso arco, girato dall’altra parte."],
     sig:n=>n===0?"armatura di chiave: nessuna alterazione":`armatura di chiave: ${Math.abs(n)} ${n>0?(Math.abs(n)===1?"diesis":"diesis"):(Math.abs(n)===1?"bemolle":"bemolli")}`,
     tonic:"tonica",mode:"modo",play:"suona la scala",same:"stesse note, altre toniche",ladder:"dal più luminoso al più scuro, sulla stessa tonica",
     ladderHint:"A ogni passo verso il basso una nota scende di un semitono, segnata in rosso.",dial:"Il modo su un cerchio di dodici note",
@@ -131,7 +134,7 @@ const TX={
       "Minore con la 2ª bemolle, un semitono sopra la tonica. Scuro, spagnolo, mediorientale.","Maggiore con la 4ª eccedente. Sospeso e luminoso.",
       "Maggiore con la 7ª bemolle. Blues, rock, folk.","Il minore naturale. La 6ª bemolle gli dà la sua tristezza.",
       "2ª e 5ª bemolle: niente quinta giusta, quindi non si posa mai del tutto."]},
-  en:{tag:"the same scale, seen from another note",views:["semitones","fifths","fourths"],viewHint:["","On the circle of fifths a mode’s notes are always seven neighbouring points. The modes are listed from brightest to darkest: each tap moves the arc one step.","The circle of fourths is the circle of fifths walked the other way: the same arc, turning the other direction."],
+  en:{source:"source on github",tag:"the same scale, seen from another note",views:["semitones","fifths","fourths"],viewHint:["","On the circle of fifths a mode’s notes are always seven neighbouring points. The modes are listed from brightest to darkest: each tap moves the arc one step.","The circle of fourths is the circle of fifths walked the other way: the same arc, turning the other direction."],
     sig:n=>n===0?"key signature: no sharps or flats":`key signature: ${Math.abs(n)} ${n>0?(Math.abs(n)===1?"sharp":"sharps"):(Math.abs(n)===1?"flat":"flats")}`,
     tonic:"tonic",mode:"mode",play:"play the scale",same:"same notes, other tonics",ladder:"from brightest to darkest, on the same tonic",
     ladderHint:"Each step down lowers one note by a semitone, shown in red.",dial:"The mode on a twelve-note circle",
@@ -234,5 +237,7 @@ $("playScale").onclick=async()=>{tone(0,undefined,0.01);if(ac.state!=="running")
 render();
 })();
 </script>
+<script data-goatcounter="https://phonk.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
